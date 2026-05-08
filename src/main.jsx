@@ -222,22 +222,34 @@ function AnimatedHeading({ text, initialDelay = 200, charDelay = 30 }) {
 
   return (
     <h1 className="hero-title" style={{ letterSpacing: "-0.04em" }}>
-      {lines.map((line, lineIndex) => (
-        <span className="hero-title-line" key={line}>
-          {Array.from(line).map((char, charIndex) => {
-            const delay = lineIndex * line.length * charDelay + charIndex * charDelay;
-            return (
-              <span
-                className={`hero-title-char ${active ? "is-visible" : ""}`}
-                key={`${char}-${charIndex}`}
-                style={{ transitionDelay: `${delay}ms` }}
-              >
-                {char === " " ? "\u00A0" : char}
+      {lines.map((line, lineIndex) => {
+        const words = line.split(" ");
+        let lineCharIndex = 0;
+
+        return (
+          <span className="hero-title-line" key={`${line}-${lineIndex}`}>
+            {words.map((word, wordIndex) => (
+              <span className="hero-title-word" key={`${word}-${lineIndex}-${wordIndex}`}>
+                {Array.from(word).map((char) => {
+                  const delay = lineIndex * line.length * charDelay + lineCharIndex * charDelay;
+                  lineCharIndex += 1;
+
+                  return (
+                    <span
+                      className={`hero-title-char ${active ? "is-visible" : ""}`}
+                      key={`${char}-${lineIndex}-${wordIndex}-${lineCharIndex}`}
+                      style={{ transitionDelay: `${delay}ms` }}
+                    >
+                      {char}
+                    </span>
+                  );
+                })}
+                {wordIndex < words.length - 1 ? <span className="hero-title-space">{"\u00A0"}</span> : null}
               </span>
-            );
-          })}
-        </span>
-      ))}
+            ))}
+          </span>
+        );
+      })}
     </h1>
   );
 }
@@ -262,7 +274,7 @@ function HeroSection() {
       <div className="hero-content">
         <div className="hero-bottom-grid">
           <div>
-            <AnimatedHeading text={"Holzbau mit Haltung\nfür Dach und Bestand."} />
+            <AnimatedHeading text={"Holzbau mit Haltung\nfür Dach und Bestand"} />
             <FadeIn delay={1200}>
               <div className="hero-actions">
                 <a className="hero-button hero-button-primary" href="#kontakt">Projekt besprechen</a>
@@ -304,10 +316,26 @@ function usePrefersReducedMotion() {
   return prefersReducedMotion;
 }
 
+function useMediaQuery(query) {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(query);
+    const updateMatches = () => setMatches(mediaQuery.matches);
+
+    updateMatches();
+    mediaQuery.addEventListener("change", updateMatches);
+    return () => mediaQuery.removeEventListener("change", updateMatches);
+  }, [query]);
+
+  return matches;
+}
+
 function InteractiveHandwerkSection() {
   const [selectedSection, setSelectedSection] = useState(null);
   const [animatingSection, setAnimatingSection] = useState(null);
   const shouldReduceMotion = usePrefersReducedMotion();
+  const isNarrowScreen = useMediaQuery("(max-width: 640px)");
 
   useEffect(() => {
     document.body.classList.toggle("detail-view-open", Boolean(selectedSection));
@@ -406,7 +434,7 @@ function InteractiveHandwerkSection() {
                       >
                         <motion.div
                           className="handwerk-story-image"
-                          initial={{ opacity: 0, x: shouldReduceMotion ? 0 : (index % 2 === 1 ? 80 : -80), scale: shouldReduceMotion ? 1 : .96 }}
+                          initial={{ opacity: 0, x: shouldReduceMotion || isNarrowScreen ? 0 : (index % 2 === 1 ? 80 : -80), scale: shouldReduceMotion ? 1 : .96 }}
                           whileInView={{ opacity: 1, x: 0, scale: 1 }}
                           viewport={{ once: true, amount: 0.36 }}
                           transition={{ duration: 0.76, ease: [0.22, 1, 0.36, 1] }}
@@ -415,7 +443,7 @@ function InteractiveHandwerkSection() {
                         </motion.div>
                         <motion.div
                           className="handwerk-story-copy"
-                          initial={{ opacity: 0, x: shouldReduceMotion ? 0 : (index % 2 === 1 ? -64 : 64) }}
+                          initial={{ opacity: 0, x: shouldReduceMotion || isNarrowScreen ? 0 : (index % 2 === 1 ? -64 : 64) }}
                           whileInView={{ opacity: 1, x: 0 }}
                           viewport={{ once: true, amount: 0.42 }}
                           transition={{ duration: 0.68, delay: shouldReduceMotion ? 0 : .08, ease: [0.22, 1, 0.36, 1] }}
@@ -576,11 +604,11 @@ function App() {
         <InteractiveHandwerkSection />
 
         <section className="service section scroll-slide foreground-panel" data-bg="workshop" id="kontakt">
-          <div className="service-intro"><p className="eyebrow">Kontakt</p><h2>Vom ersten Anruf bis zur sauberen Baustelle.</h2></div>
+          <div className="service-intro"><p className="eyebrow">Kontakt</p><h2>Vom ersten Anruf bis zur sauberen Baustelle</h2></div>
           <div className="steps">
-            <article><Compass size={28} /><strong>Beratung</strong><p>Projektziel, Bestand und Zeitfenster werden direkt geklärt.</p></article>
-            <article><Ruler size={28} /><strong>Aufmaß</strong><p>Maße, Höhen, Anschlüsse und Materialbedarf werden vor Ort geprüft.</p></article>
-            <article><Hammer size={28} /><strong>Ausführung</strong><p>Die Arbeit wird mit ruhigem Ablauf und sauberer Übergabe umgesetzt.</p></article>
+            <article className="reveal-item step-item"><Compass size={28} /><strong>Beratung</strong><p>Projektziel, Bestand und Zeitfenster werden direkt geklärt.</p></article>
+            <article className="reveal-item step-item"><Ruler size={28} /><strong>Aufmaß</strong><p>Maße, Höhen, Anschlüsse und Materialbedarf werden vor Ort geprüft.</p></article>
+            <article className="reveal-item step-item"><Hammer size={28} /><strong>Ausführung</strong><p>Die Arbeit wird mit ruhigem Ablauf und sauberer Übergabe umgesetzt.</p></article>
           </div>
         </section>
 
