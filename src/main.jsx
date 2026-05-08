@@ -46,7 +46,6 @@ const handwerkSections = [
     id: "dachwerk",
     title: "Dachwerk",
     image: dachwerkZero,
-    areaClass: "interactive-area-dachwerk",
     text: "Tragende Dachkonstruktionen mit klarer Linie, sauberem Abbund und sichtbarer Materiallogik.",
     story: [
       {
@@ -85,7 +84,6 @@ const handwerkSections = [
     id: "holzbau",
     title: "Holzbau",
     image: holzbauZero,
-    areaClass: "interactive-area-holzbau",
     text: "Konstruktionen aus Holz für Bestand, Anbau und funktionale Erweiterungen rund ums Haus.",
     story: [
       {
@@ -124,7 +122,6 @@ const handwerkSections = [
     id: "sanierung",
     title: "Sanierung",
     image: sanierungZero,
-    areaClass: "interactive-area-sanierung",
     text: "Bestand prüfen, schadhafte Hölzer austauschen und langlebige Lösungen für ältere Gebäude schaffen.",
     story: [
       {
@@ -163,7 +160,6 @@ const handwerkSections = [
     id: "innenausbau",
     title: "Innenausbau",
     image: innenausbauZero,
-    areaClass: "interactive-area-innenausbau",
     text: "Holzdetails, Verkleidungen und Ausbauanschlüsse, die handwerklich ruhig in den Raum passen.",
     story: [
       {
@@ -344,29 +340,27 @@ function InteractiveHandwerkSection() {
 
         <div className="interactive-image-stage" aria-label="Interaktive Handwerksbereiche">
           <div className="editorial-wall">
-            {editorialFrames.map(([title, image], index) => (
-              <article className={`editorial-frame editorial-${index + 1}`} key={title}>
-                <img src={image} alt={`${title} der Zimmerei Kurth`} />
-                <div className="editorial-overlay"><h3>{title}</h3></div>
-              </article>
-            ))}
-          </div>
+            {handwerkSections.map((section, index) => {
+              const [, image] = editorialFrames[index] || [];
 
-          {handwerkSections.map((section) => (
-            <motion.button
-              className={`interactive-hotspot ${section.areaClass}`}
-              key={section.id}
-              type="button"
-              aria-label={`${section.title} öffnen`}
-              onClick={() => openSection(section)}
-              whileHover={shouldReduceMotion ? undefined : { scale: 1.025 }}
-              whileTap={shouldReduceMotion ? undefined : { scale: 0.985 }}
-              animate={animatingSection === section.id ? { scale: 1.34, opacity: 0 } : { scale: 1, opacity: selectedSection ? 0 : 1 }}
-              transition={{ duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <span>{section.title}</span>
-            </motion.button>
-          ))}
+              return (
+                <motion.button
+                  className={`editorial-frame editorial-card editorial-${index + 1}`}
+                  key={section.id}
+                  type="button"
+                  aria-label={`${section.title} öffnen`}
+                  onClick={() => openSection(section)}
+                  whileHover={shouldReduceMotion ? undefined : { scale: 1.025 }}
+                  whileTap={shouldReduceMotion ? undefined : { scale: 0.985 }}
+                  animate={animatingSection === section.id ? { scale: 1.18, opacity: 0 } : { scale: 1, opacity: selectedSection ? 0 : 1 }}
+                  transition={{ duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <img src={image || section.image} alt={`${section.title} der Zimmerei Kurth`} />
+                  <div className="editorial-overlay"><h3>{section.title}</h3></div>
+                </motion.button>
+              );
+            })}
+          </div>
         </div>
       </motion.div>
 
