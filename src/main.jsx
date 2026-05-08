@@ -1,7 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
+import { createPortal } from "react-dom";
 import { Compass, Hammer, Mail, MapPin, Phone, Ruler, ShieldCheck } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import "./styles.css";
+import dachwerkZero from "../assets/Dachwerk/0.png";
+import dachwerkOne from "../assets/Dachwerk/1.jpeg";
+import dachwerkTwo from "../assets/Dachwerk/2.jpeg";
+import dachwerkThree from "../assets/Dachwerk/3.png";
+import dachwerkFour from "../assets/Dachwerk/4.jpeg";
+import holzbauZero from "../assets/Holzbau/0.png";
+import holzbauOne from "../assets/Holzbau/1.png";
+import holzbauTwo from "../assets/Holzbau/2.png";
+import holzbauThree from "../assets/Holzbau/3.jpeg";
+import holzbauFour from "../assets/Holzbau/4.jpeg";
+import sanierungZero from "../assets/Sanierung/0.png";
+import sanierungOne from "../assets/Sanierung/1.png";
+import sanierungTwo from "../assets/Sanierung/2.jpeg";
+import sanierungThree from "../assets/Sanierung/3.jpeg";
+import sanierungFour from "../assets/Sanierung/4.jpeg";
+import innenausbauZero from "../assets/Innenausbau/0.jpeg";
+import innenausbauOne from "../assets/Innenausbau/1.png";
+import innenausbauTwo from "../assets/Innenausbau/2.png";
+import innenausbauThree from "../assets/Innenausbau/3.png";
+import innenausbauFour from "../assets/Innenausbau/4.jpeg";
 
 const services = [
   ["Dachstühle", "Tragwerke, Aufstockungen und Reparaturen mit sauberem Abbund und klaren Anschlüssen."],
@@ -17,6 +39,165 @@ const editorialFrames = [
   ["Holzbau", "/assets/Holzbau.png"],
   ["Sanierung", "/assets/Sanierung.png"],
   ["Innenausbau", "/assets/Innenausbau.png"]
+];
+
+const handwerkSections = [
+  {
+    id: "dachwerk",
+    title: "Dachwerk",
+    image: dachwerkZero,
+    areaClass: "interactive-area-dachwerk",
+    text: "Tragende Dachkonstruktionen mit klarer Linie, sauberem Abbund und sichtbarer Materiallogik.",
+    story: [
+      {
+        kicker: "Substanz",
+        title: "Dachwerke mit Substanz",
+        image: dachwerkOne,
+        text: "Präzision, die Generationen trägt. Ein Dachstuhl ist mehr als Konstruktion - er ist das tragende Herz eines Hauses. Er entscheidet über Stabilität, Langlebigkeit und den Charakter des gesamten Bauwerks."
+      },
+      {
+        kicker: "Planung",
+        title: "Jeder Balken sitzt im System",
+        image: dachwerkTwo,
+        text: "Wir planen und realisieren hochwertige Dachwerke mit handwerklicher Präzision, modernster Holzbautechnik und einem kompromisslosen Anspruch an Qualität. Jede Verbindung wird exakt auf Ihr Bauvorhaben abgestimmt."
+      },
+      {
+        kicker: "Ausführung",
+        title: "Tradition trifft Holzbautechnik",
+        image: dachwerkThree,
+        text: "Ob Neubau, Anbau oder komplexe Sonderkonstruktion: Wir verbinden traditionelles Zimmererhandwerk mit modernen Lösungen im Holzbau und schaffen Dachkonstruktionen, die nicht nur tragen, sondern Werte schaffen."
+      },
+      {
+        kicker: "Verlässlichkeit",
+        title: "Gebaut für Jahrzehnte",
+        image: dachwerkFour,
+        text: "Unsere Dachwerke stehen für präzise Planung, saubere Ausführung, hochwertige Materialien, individuelle Lösungen und höchste Qualitätsstandards. Lassen Sie uns Ihr Projekt gemeinsam planen - transparent und mit Blick fürs Wesentliche."
+      }
+    ],
+    gallery: [
+      ["Sparrenlage", "/assets/Dachstuhl.png", "Präzise gesetzte Linien für ruhige, tragfähige Dachflächen."],
+      ["Holzverbindung", "/assets/Holzbau.png", "Verbindungen werden geplant, geprüft und sauber ausgeführt."],
+      ["Bestand", "/assets/Sanierung.png", "Alte Konstruktionen werden respektvoll verstärkt oder ersetzt."],
+      ["Innenkante", "/assets/Innenausbau.png", "Anschlüsse bleiben sichtbar sauber und passend zum Raum."]
+    ]
+  },
+  {
+    id: "holzbau",
+    title: "Holzbau",
+    image: holzbauZero,
+    areaClass: "interactive-area-holzbau",
+    text: "Konstruktionen aus Holz für Bestand, Anbau und funktionale Erweiterungen rund ums Haus.",
+    story: [
+      {
+        kicker: "Konstruktion",
+        title: "Holzbau mit Anspruch",
+        image: holzbauOne,
+        text: "Qualität, die man sieht und spürt. Holz ist einer der wertvollsten Baustoffe unserer Zeit - nachhaltig, vielseitig und langlebig. Entscheidend ist jedoch nicht nur das Material, sondern die Präzision, mit der es verarbeitet wird."
+      },
+      {
+        kicker: "Montage",
+        title: "Tradition trifft moderne Technik",
+        image: holzbauTwo,
+        text: "Im modernen Holzbau verbinden wir traditionelles Handwerk mit innovativer Technik und schaffen Lösungen, die funktional, ästhetisch und auf Jahrzehnte ausgelegt sind. Ob Tragkonstruktion, Erweiterung, Aufstockung oder Sonderanfertigung - jedes Projekt wird mit höchster Sorgfalt geplant."
+      },
+      {
+        kicker: "Bestand",
+        title: "Lebensräume schaffen",
+        image: holzbauThree,
+        text: "Für uns bedeutet Holzbau mehr als nur Bauen: Es bedeutet, Lebensräume zu schaffen, Werte zu erhalten und nachhaltige Qualität für kommende Generationen zu sichern. Unsere Arbeit steht für maßgeschneiderte Konstruktionen, hochwertige Materialien und präzise Verarbeitung."
+      },
+      {
+        kicker: "Wert",
+        title: "Sicherheit und echtes Handwerk",
+        image: holzbauFour,
+        text: "Nachhaltige und energieeffiziente Bauweisen, moderne Lösungen für Neubau, Umbau und Erweiterung sowie Zuverlässigkeit und Termintreue prägen jedes Projekt. Wer beim Bauen auf Qualität setzt, entscheidet sich für Sicherheit, Wertbeständigkeit und Ergebnisse, die überzeugen."
+      }
+    ],
+    gallery: [
+      ["Montage", "/assets/Holzbau.png", "Elemente werden vorbereitet und auf der Baustelle ruhig gesetzt."],
+      ["Tragwerk", "/assets/Dachstuhl.png", "Holzbau beginnt mit klarer Lastführung und sauberem Raster."],
+      ["Carport", "/assets/Carport.jpeg", "Praktische Außenkonstruktionen mit stimmigem Materialeinsatz."],
+      ["Detail", "/assets/Innenausbau.png", "Oberflächen und Anschlüsse werden bis zum Detail geführt."]
+    ]
+  },
+  {
+    id: "sanierung",
+    title: "Sanierung",
+    image: sanierungZero,
+    areaClass: "interactive-area-sanierung",
+    text: "Bestand prüfen, schadhafte Hölzer austauschen und langlebige Lösungen für ältere Gebäude schaffen.",
+    story: [
+      {
+        kicker: "Weitblick",
+        title: "Sanierung mit Weitblick",
+        image: sanierungOne,
+        text: "Werte erhalten, Zukunft sichern. Jede Immobilie erzählt ihre eigene Geschichte - doch mit der Zeit hinterlassen Witterung, Alter und Belastung ihre Spuren. Eine professionelle Sanierung bedeutet nicht nur Reparatur, sondern nachhaltige Aufwertung."
+      },
+      {
+        kicker: "Substanz",
+        title: "Erhalten, verbessern, sichern",
+        image: sanierungTwo,
+        text: "Wir sanieren Dächer, Holzkonstruktionen und Gebäudeteile mit höchster handwerklicher Präzision und dem Blick für das Wesentliche: Substanz erhalten, Schwachstellen beseitigen und neue Qualität schaffen."
+      },
+      {
+        kicker: "Analyse",
+        title: "Jede Sanierung wird individuell geplant",
+        image: sanierungThree,
+        text: "Ob Dachsanierung, energetische Modernisierung, Schadensbehebung oder komplette Erneuerung - jede Sanierung wird individuell geplant und fachgerecht umgesetzt. Erfahrung, moderne Technik und hochwertige Materialien greifen sauber ineinander."
+      },
+      {
+        kicker: "Sicherheit",
+        title: "Aus Bestehendem wieder Wertvolles machen",
+        image: sanierungFour,
+        text: "Unsere Sanierungsleistungen stehen für fachgerechte Analyse, nachhaltige Lösungen, Werterhalt, energieeffiziente Konzepte und termingerechte Umsetzung. Eine gute Sanierung schützt nicht nur Ihr Gebäude - sie schützt Ihre Investition."
+      }
+    ],
+    gallery: [
+      ["Prüfung", "/assets/Sanierung.png", "Zustand, Feuchte und Anschlussdetails werden zuerst bewertet."],
+      ["Austausch", "/assets/Dachstuhl.png", "Beschädigte Bauteile werden gezielt ersetzt statt blind überbaut."],
+      ["Innenausbau", "/assets/Innenausbau.png", "Sanierung und Ausbau greifen sauber ineinander."],
+      ["Holzbau", "/assets/Holzbau.png", "Neue Holzelemente schließen tragfähig an den Bestand an."]
+    ]
+  },
+  {
+    id: "innenausbau",
+    title: "Innenausbau",
+    image: innenausbauZero,
+    areaClass: "interactive-area-innenausbau",
+    text: "Holzdetails, Verkleidungen und Ausbauanschlüsse, die handwerklich ruhig in den Raum passen.",
+    story: [
+      {
+        kicker: "Präzision",
+        title: "Innenausbau mit Präzision",
+        image: innenausbauOne,
+        text: "Räume, die Eindruck hinterlassen. Ein hochwertiger Innenausbau macht den Unterschied zwischen einem fertigen Raum und einem Zuhause mit Charakter. Es sind die Details, die Qualität sichtbar machen."
+      },
+      {
+        kicker: "Ausführung",
+        title: "Funktion, Design und Komfort",
+        image: innenausbauTwo,
+        text: "Wir realisieren Innenausbau auf höchstem handwerklichen Niveau und schaffen Räume, die Funktionalität, Design und Wohnkomfort perfekt miteinander verbinden - von Wand- und Deckenkonstruktionen bis zu individuellen Holzverkleidungen."
+      },
+      {
+        kicker: "Maßarbeit",
+        title: "Details, die bleiben",
+        image: innenausbauThree,
+        text: "Innenausbau bedeutet mehr als Ausbau: Es geht darum, Räume zu schaffen, die Ihren Ansprüchen gerecht werden und langfristig ihren Wert behalten. Jedes Detail wird mit Sorgfalt geplant und mit Präzision umgesetzt."
+      },
+      {
+        kicker: "Perfektion",
+        title: "Qualität erkennt man im Detail",
+        image: innenausbauFour,
+        text: "Unsere Leistungen stehen für präzise Ausführung, hochwertige Materialien, individuelle Lösungen nach Maß, moderne Gestaltung und termingerechte Umsetzung. Lassen Sie uns Räume schaffen, die dauerhaft überzeugen."
+      }
+    ],
+    gallery: [
+      ["Wandfläche", "/assets/Innenausbau.png", "Saubere Flächenführung mit präzisen Kanten und Anschlüssen."],
+      ["Dachraum", "/assets/Dachstuhl.png", "Dachräume werden nutzbar, ohne die Konstruktion zu verstecken."],
+      ["Bestand", "/assets/Sanierung.png", "Vorhandene Substanz wird in den Ausbau integriert."],
+      ["Material", "/assets/Holzbau.png", "Holz bleibt funktional, warm und belastbar."]
+    ]
+  }
 ];
 
 function FadeIn({ children, delay = 0, duration = 1000, className = "" }) {
@@ -109,6 +290,175 @@ function CinematicBackground() {
       <div className="cinematic-bg-panel bg-contact" data-bg="contact" />
       <div className="cinematic-bg-grain" />
     </div>
+  );
+}
+
+function usePrefersReducedMotion() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mediaQuery.matches);
+
+    const updatePreference = (event) => setPrefersReducedMotion(event.matches);
+    mediaQuery.addEventListener("change", updatePreference);
+    return () => mediaQuery.removeEventListener("change", updatePreference);
+  }, []);
+
+  return prefersReducedMotion;
+}
+
+function InteractiveHandwerkSection() {
+  const [selectedSection, setSelectedSection] = useState(null);
+  const [animatingSection, setAnimatingSection] = useState(null);
+  const shouldReduceMotion = usePrefersReducedMotion();
+
+  useEffect(() => {
+    document.body.classList.toggle("detail-view-open", Boolean(selectedSection));
+    return () => document.body.classList.remove("detail-view-open");
+  }, [selectedSection]);
+
+  const openSection = (section) => {
+    if (animatingSection || selectedSection) return;
+    setAnimatingSection(section.id);
+    window.setTimeout(() => {
+      setSelectedSection(section);
+      setAnimatingSection(null);
+    }, shouldReduceMotion ? 80 : 520);
+  };
+
+  const closeSection = () => setSelectedSection(null);
+
+  return (
+    <section className="image-direction scroll-slide foreground-panel" data-bg="editorial" id="handwerk">
+      <motion.div
+        key="handwerk-overview"
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 28 }}
+        animate={{ opacity: selectedSection ? .36 : 1, y: 0, scale: selectedSection && !shouldReduceMotion ? .98 : 1 }}
+        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <div className="image-direction-header">
+          <p className="eyebrow" id="eyebrow-handwerk">Handwerk</p>
+          <h2><span>Schwarz, Weiß, Holz.</span></h2>
+        </div>
+
+        <div className="interactive-image-stage" aria-label="Interaktive Handwerksbereiche">
+          <div className="editorial-wall">
+            {editorialFrames.map(([title, image], index) => (
+              <article className={`editorial-frame editorial-${index + 1}`} key={title}>
+                <img src={image} alt={`${title} der Zimmerei Kurth`} />
+                <div className="editorial-overlay"><h3>{title}</h3></div>
+              </article>
+            ))}
+          </div>
+
+          {handwerkSections.map((section) => (
+            <motion.button
+              className={`interactive-hotspot ${section.areaClass}`}
+              key={section.id}
+              type="button"
+              aria-label={`${section.title} öffnen`}
+              onClick={() => openSection(section)}
+              whileHover={shouldReduceMotion ? undefined : { scale: 1.025 }}
+              whileTap={shouldReduceMotion ? undefined : { scale: 0.985 }}
+              animate={animatingSection === section.id ? { scale: 1.34, opacity: 0 } : { scale: 1, opacity: selectedSection ? 0 : 1 }}
+              transition={{ duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <span>{section.title}</span>
+            </motion.button>
+          ))}
+        </div>
+      </motion.div>
+
+      {createPortal(
+        <AnimatePresence>
+          {selectedSection && (
+            <motion.div
+              className="handwerk-detail-page"
+              key={selectedSection.id}
+              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : "100%" }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: shouldReduceMotion ? 0 : "100%" }}
+              transition={{ duration: 0.68, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <button className="handwerk-detail-back" type="button" onClick={closeSection}>Zurück</button>
+
+              <div className={`handwerk-detail-scroll ${selectedSection.story ? "handwerk-detail-scroll-story" : ""}`}>
+                <div className="handwerk-detail-hero">
+                  <motion.img
+                    src={selectedSection.image}
+                    alt={`${selectedSection.title} Detailansicht`}
+                    initial={{ scale: shouldReduceMotion ? 1 : 1.12, opacity: .3 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: .85, ease: [0.22, 1, 0.36, 1] }}
+                  />
+                  <div className="handwerk-detail-title">
+                    <p className="eyebrow">Handwerk</p>
+                    <h2>{selectedSection.title}</h2>
+                    <p>{selectedSection.text}</p>
+                  </div>
+                </div>
+
+                {selectedSection.story ? (
+                  <div className="handwerk-story">
+                    {selectedSection.story.map((item, index) => (
+                      <motion.article
+                        className={`handwerk-story-row ${index % 2 === 1 ? "is-reversed" : ""}`}
+                        key={item.title}
+                        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 70, filter: shouldReduceMotion ? "blur(0px)" : "blur(14px)" }}
+                        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                        viewport={{ once: true, amount: 0.32 }}
+                        transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
+                      >
+                        <motion.div
+                          className="handwerk-story-image"
+                          initial={{ opacity: 0, x: shouldReduceMotion ? 0 : (index % 2 === 1 ? 80 : -80), scale: shouldReduceMotion ? 1 : .96 }}
+                          whileInView={{ opacity: 1, x: 0, scale: 1 }}
+                          viewport={{ once: true, amount: 0.36 }}
+                          transition={{ duration: 0.76, ease: [0.22, 1, 0.36, 1] }}
+                        >
+                          <img src={item.image} alt={`${selectedSection.title}: ${item.title}`} />
+                        </motion.div>
+                        <motion.div
+                          className="handwerk-story-copy"
+                          initial={{ opacity: 0, x: shouldReduceMotion ? 0 : (index % 2 === 1 ? -64 : 64) }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true, amount: 0.42 }}
+                          transition={{ duration: 0.68, delay: shouldReduceMotion ? 0 : .08, ease: [0.22, 1, 0.36, 1] }}
+                        >
+                          <span>{item.kicker}</span>
+                          <h3>{item.title}</h3>
+                          <p>{item.text}</p>
+                        </motion.div>
+                      </motion.article>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="handwerk-detail-grid">
+                    {selectedSection.gallery.map(([label, image, text], index) => (
+                      <motion.article
+                        className="handwerk-detail-card"
+                        key={label}
+                        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 28 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: shouldReduceMotion ? 0 : index * .07, duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
+                      >
+                        <img src={image} alt={`${selectedSection.title}: ${label}`} />
+                        <div>
+                          <h3>{label}</h3>
+                          <p>{text}</p>
+                        </div>
+                      </motion.article>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
+    </section>
   );
 }
 
@@ -229,22 +579,7 @@ function App() {
           <div className="gallery-grid">{gallery.map((item, index) => <article key={item} className={`gallery-item item-${index + 1}`}><span>{item}</span></article>)}</div>
         </section>
 
-        <section className="image-direction scroll-slide foreground-panel" data-bg="editorial" id="handwerk">
-          <div className="image-direction-header">
-            <p className="eyebrow" id="eyebrow-handwerk">Handwerk</p>
-            <h2>
-              <span>Schwarz, Weiß, Holz.</span>
-            </h2>
-          </div>
-          <div className="editorial-wall">
-            {editorialFrames.map(([title, image], index) => (
-              <article className={`editorial-frame editorial-${index + 1}`} key={title}>
-                <img src={image} alt={`${title} der Zimmerei Kurth`} />
-                <div className="editorial-overlay"><h3>{title}</h3></div>
-              </article>
-            ))}
-          </div>
-        </section>
+        <InteractiveHandwerkSection />
 
         <section className="service section scroll-slide foreground-panel" data-bg="workshop" id="kontakt">
           <div className="service-intro"><p className="eyebrow">Kontakt</p><h2>Vom ersten Anruf bis zur sauberen Baustelle.</h2></div>
