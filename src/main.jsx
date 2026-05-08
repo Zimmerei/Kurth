@@ -4,26 +4,27 @@ import { createPortal } from "react-dom";
 import { Compass, Hammer, Mail, MapPin, Phone, Ruler, ShieldCheck } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import "./styles.css";
-import dachwerkZero from "../assets/Dachwerk/0.png";
-import dachwerkOne from "../assets/Dachwerk/1.jpeg";
-import dachwerkTwo from "../assets/Dachwerk/2.jpeg";
-import dachwerkThree from "../assets/Dachwerk/3.png";
-import dachwerkFour from "../assets/Dachwerk/4.jpeg";
-import holzbauZero from "../assets/Holzbau/0.png";
-import holzbauOne from "../assets/Holzbau/1.png";
-import holzbauTwo from "../assets/Holzbau/2.png";
-import holzbauThree from "../assets/Holzbau/3.jpeg";
-import holzbauFour from "../assets/Holzbau/4.jpeg";
-import sanierungZero from "../assets/Sanierung/0.png";
-import sanierungOne from "../assets/Sanierung/1.png";
-import sanierungTwo from "../assets/Sanierung/2.jpeg";
-import sanierungThree from "../assets/Sanierung/3.jpeg";
-import sanierungFour from "../assets/Sanierung/4.jpeg";
-import innenausbauZero from "../assets/Innenausbau/0.jpeg";
-import innenausbauOne from "../assets/Innenausbau/1.png";
-import innenausbauTwo from "../assets/Innenausbau/2.png";
-import innenausbauThree from "../assets/Innenausbau/3.png";
-import innenausbauFour from "../assets/Innenausbau/4.jpeg";
+
+const dachwerkZero = "/assets/Dachwerk/0.png";
+const dachwerkOne = "/assets/Dachwerk/1.jpeg";
+const dachwerkTwo = "/assets/Dachwerk/2.jpeg";
+const dachwerkThree = "/assets/Dachwerk/3.png";
+const dachwerkFour = "/assets/Dachwerk/4.jpeg";
+const holzbauZero = "/assets/Holzbau/0.png";
+const holzbauOne = "/assets/Holzbau/1.png";
+const holzbauTwo = "/assets/Holzbau/2.png";
+const holzbauThree = "/assets/Holzbau/3.jpeg";
+const holzbauFour = "/assets/Holzbau/4.jpeg";
+const sanierungZero = "/assets/Sanierung/0.png";
+const sanierungOne = "/assets/Sanierung/1.png";
+const sanierungTwo = "/assets/Sanierung/2.jpeg";
+const sanierungThree = "/assets/Sanierung/3.jpeg";
+const sanierungFour = "/assets/Sanierung/4.jpeg";
+const innenausbauZero = "/assets/Innenausbau/0.jpeg";
+const innenausbauOne = "/assets/Innenausbau/1.png";
+const innenausbauTwo = "/assets/Innenausbau/2.png";
+const innenausbauThree = "/assets/Innenausbau/3.png";
+const innenausbauFour = "/assets/Innenausbau/4.jpeg";
 
 const services = [
   ["Dachstühle", "Tragwerke, Aufstockungen und Reparaturen mit sauberem Abbund und klaren Anschlüssen."],
