@@ -795,7 +795,14 @@ h3 { font-size: 1.62rem; line-height: 1.05; }
   .metric-band {
     grid-template-columns: 1fr;
     gap: 10px;
-    margin-top: -28px;
+    margin-top: 14px;
+    touch-action: pan-y;
+  }
+  .metric-band,
+  .metric-band .metric-item {
+    opacity: 1;
+    filter: none;
+    transform: none;
   }
   .metric-band article {
     min-height: auto;
@@ -971,7 +978,10 @@ h3 { font-size: 1.62rem; line-height: 1.05; }
   .hero-actions { display: grid; grid-template-columns: 1fr; }
 
   .section { padding: 72px 0; }
-  .metric-band { width: min(100% - 20px, 520px); }
+  .metric-band {
+    width: min(100% - 20px, 520px);
+    margin-top: 12px;
+  }
   .metric-band article { padding: 20px; }
 
   .about { width: min(100% - 20px, 520px); }
