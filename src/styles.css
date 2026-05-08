@@ -23,6 +23,8 @@ body {
   font-family: "Inter", sans-serif;
   font-size: 18px;
   line-height: 1.5;
+  overscroll-behavior-y: auto;
+  -webkit-overflow-scrolling: touch;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -727,6 +729,28 @@ h3 { font-size: 1.62rem; line-height: 1.05; }
   [id] { scroll-margin-top: 96px; }
   #kontakt { scroll-margin-top: 108px; }
 
+  .cinematic-bg-panel {
+    transform: none !important;
+    transition: opacity 420ms ease;
+    will-change: opacity;
+  }
+
+  .scroll-slide,
+  .reveal-item {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+
+  .scroll-slide.is-visible,
+  .reveal-item.is-visible {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+
   h2,
   h3,
   .hero-title,
@@ -787,6 +811,18 @@ h3 { font-size: 1.62rem; line-height: 1.05; }
   .hero-title { max-width: 12ch; font-size: clamp(2.45rem, 10.8vw, 4.5rem); line-height: .96; }
   .hero-actions { gap: 10px; }
   .hero-button { min-height: 48px; padding: 12px 18px; }
+
+  .craft-tile:hover,
+  .gallery-item:hover,
+  .contact-panel a:hover {
+    filter: none;
+    transform: none;
+  }
+
+  .editorial-frame:hover img,
+  .editorial-frame:focus-visible img {
+    transform: scale(1.08);
+  }
 
   .section,
   .metric-band,
@@ -944,8 +980,8 @@ h3 { font-size: 1.62rem; line-height: 1.05; }
 @media (max-width: 560px) {
   body { font-size: 15px; }
   .scroll-slide {
-    filter: blur(8px);
-    transform: perspective(900px) translate3d(0, 120px, 0) scale(.98);
+    filter: none;
+    transform: none;
   }
   .hero-nav {
     grid-template-columns: auto minmax(0, 1fr);

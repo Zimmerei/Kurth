@@ -492,6 +492,7 @@ function App() {
     const stage = document.querySelector(".cinematic-stage");
     const panels = document.querySelectorAll(".cinematic-bg-panel");
     const sections = Array.from(document.querySelectorAll(".scroll-slide"));
+    const mobileQuery = window.matchMedia("(max-width: 900px)");
 
     const setActivePanel = (key) => {
       if (!key || stage?.dataset.activeBg === key) return;
@@ -518,7 +519,7 @@ function App() {
     };
 
     const updateScrollLayer = () => {
-      root.style.setProperty("--scroll-y", `${window.scrollY}`);
+      root.style.setProperty("--scroll-y", mobileQuery.matches ? "0" : `${window.scrollY}`);
       updateActiveBackground();
       frameId = 0;
     };
